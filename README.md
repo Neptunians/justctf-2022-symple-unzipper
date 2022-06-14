@@ -260,10 +260,9 @@ O código-fonte do index.html esfrega a segunda dica na nossa cara:
 </p>
 ```
 
-`
 **[Mitra](https://github.com/corkami/mitra)**
 
-A tool to generate binary polyglots (files that are valid with several file formats).`
+`A tool to generate binary polyglots (files that are valid with several file formats).`
 
 Esse conceito do "arquivo poliglota" é bem interessante: basicamente arquivos que funcionam como dois ou mais formatos.
 
@@ -334,9 +333,7 @@ Chega de teste local, bora pro server:
 
 Flag na mão!
 
-```
-justCTF{siymmple_challll_bay_sultanik_o/}
-```
+`justCTF{siymmple_challll_bay_sultanik_o/}`
 
 ## Referências
 * [CTF Time Event](https://ctftime.org/event/1631)
