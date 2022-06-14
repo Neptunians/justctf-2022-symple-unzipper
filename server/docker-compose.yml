@@ -1,0 +1,25 @@
+version: '3.7'
+services:
+    server:
+        read_only: true
+        tmpfs:
+          - /server/uploads
+        # volumes:
+        #   - /home/task/flag.txt:/server/flag.txt:ro
+        build:
+            context: .
+        image: "esultanik/justctf-archive-polyglot"
+        restart: "always"
+        ports:
+            - "80:80/tcp"
+        cap_drop:
+          - all
+        cap_add:
+          - NET_BIND_SERVICE
+        logging:
+          driver: "json-file"
+          options:
+            max-size: "30m"
+            max-file: "5"
+        # environment:
+        #   - FLAG=myflag
